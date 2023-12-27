@@ -58,7 +58,6 @@ class CarServiceController extends Controller
     public function update(Request $request, Carservice $carservice)
 
     {
-//wewe
         $request->validate(
             [
                 'car_service_name' => 'required|unique:carservices,car_service_name,' . $carservice->id . '',
