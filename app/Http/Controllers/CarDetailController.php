@@ -9,6 +9,7 @@ class CarDetailController extends Controller
 {
     public function index()
     {
+        //qw
         $cardetail = CarDetail::orderby('id', 'desc')->get();
         return view('car_details.list', compact('cardetail'));
     }
