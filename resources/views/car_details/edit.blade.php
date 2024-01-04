@@ -120,9 +120,13 @@
                                         @endif
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="car_weight" class="form-label">Weight<span class="text-danger">*</span></label>
-                                        <input type="text" name="car_weight" id="car_weight" class="form-control"  value="{{$cardetail->car_weight}}">
-
+                                        <label for="car_type" class="form-label">Type<span class="text-danger">*</span></label>
+                                        <select class="form-control" name="car_type" required>
+                                            <option value="">Select</option>
+                                            <option value="0" {{ $cardetail->car_type == "0"? 'selected':'' }}>Hatchback</option>
+                                            <option value="1" {{ $cardetail->car_type == "1" ? 'selected':'' }}>Sedan</option>
+                                            <option value="2" {{ $cardetail->car_type == "2" ? 'selected' :'' }}>Suv</option>
+                                        </select>
                                     </div>
 
                                 </div>

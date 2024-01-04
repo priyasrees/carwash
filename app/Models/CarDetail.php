@@ -9,5 +9,5 @@ class CarDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable=['car_name','car_model','car_weight'];
+    protected $fillable=['car_name','car_model','car_type'];
 }

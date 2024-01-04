@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('car_name',255);
             $table->string('car_model',255);
-            $table->float('car_weight')->nullable();
+            $table->integer('car_type',12);
             $table->timestamps();
         });
     }

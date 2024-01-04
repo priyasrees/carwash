@@ -15,7 +15,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{url('/assets/images/logo-sm.png')}}">
+        <link rel="shortcut icon" href="{{url('/assets/images/carwashlogo.png')}}">
 
         <!-- jsvectormap css -->
         <link href="{{url('/assets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
@@ -675,7 +675,7 @@
     </a>
 </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{url('customer')}}" role="button" aria-expanded="false" aria-controls="">
+                            <a class="nav-link menu-link" href="{{url('customers')}}" role="button" aria-expanded="false" aria-controls="">
                                 <i class="mdi mdi-account"></i><span data-key="t-carservice">Customer</span>
                             </a>
                         </li>
@@ -692,6 +692,11 @@
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{url('staff')}}" role="button" aria-expanded="false" aria-controls="">
                                 <i class="mdi mdi-account-group"></i><span data-key="t-carservice">Staff</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{url('assign_customer')}}" role="button" aria-expanded="false" aria-controls="">
+                                <i class="mdi mdi-account-switch"></i><span data-key="t-carservice">Assign Customer</span>
                             </a>
                         </li>
 

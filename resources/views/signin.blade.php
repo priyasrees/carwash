@@ -11,7 +11,7 @@
     <meta content="Sign In" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{url('/assets/images/carwashlogo.png')}}">
 
     <!-- Layout config Js -->
     <script src="assets/js/layout.js"></script>
@@ -41,7 +41,7 @@
     .text-primary{
         color: #FFDB58 !important;
     }
- </style>
+</style>
 <body>
 
     <div class="auth-page-wrapper pt-5">
@@ -63,7 +63,7 @@
                     <div class="col-lg-12">
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
-                                <a href="#" class="d-inline-block auth-logo">
+                                <a href="{{url('signin')}}" class="d-inline-block auth-logo">
                                     <i class="mdi mdi-car-hatchback" width="200" height="200" style="font-size: 50px"></i>
 
                                 </a>
@@ -84,21 +84,33 @@
                                     <p class="text-muted">Sign in to continue.</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form action="{{url('/')}}" method="post">
-@csrf
+                                    <form action="{{route('login')}}" method="post">
+                                        @csrf
                                         <div class="mb-3">
-                                            <label for="username" class="form-label">Username</label>
-                                            <input type="text" name="username" class="form-control" id="username" placeholder="Enter username">
-                                        </div>
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                                             required id="email" value="{{ old('email') }}" placeholder="Enter Email" autocomplete="email" autofocus>
+                                             @error('email')
+                                             <span class="invalid-feedback" role="alert">
+                                                 <strong>{{ $message }}</strong>
+                                             </span>
+                                         @enderror
+                                            </div>
 
                                         <div class="mb-3">
-                                            <div class="float-end">
+                                            {{-- <div class="float-end">
                                                 <a href="{{url('forgot_password')}}" class="text-muted">Forgot password?</a>
-                                            </div>
-                                            <label class="form-label" for="password-input">Password</label>
+                                            </div> --}}
+                                            <label class="form-label" for="password">Password</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" name="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input">
+                                                <input type="password" name="password" required class="form-control pe-5 password-input @error('password') is-invalid @enderror"
+                                                 placeholder="Enter password" id="password" autocomplete="current-password">
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                             </div>
                                         </div>
 
