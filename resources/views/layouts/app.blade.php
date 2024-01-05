@@ -699,6 +699,12 @@
                                 <i class="mdi mdi-account-switch"></i><span data-key="t-carservice">Assign Customer</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{url('offer')}}" role="button" aria-expanded="false" aria-controls="">
+                                <i class="mdi mdi-tag"></i><span data-key="t-carservice">
+                                    Offer</span>
+                            </a>
+                        </li>
 
                         {{-- <li class="nav-item">
                             <a class="nav-link menu-link" href="#" role="button" aria-expanded="false" aria-controls="">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-
+use App\Models\Package;
 class CustomerController extends Controller
 {
 public function index(){
@@ -71,4 +71,8 @@ public function destroy(Customer $customer)
         $customer->delete();
         session()->flash('message', 'Record Deleted Successfully');
     }
+public function offer(){
+$package = Package::get();
+    return view('offer',compact('package'));
+}
 }

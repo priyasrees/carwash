@@ -82,8 +82,8 @@ class AuthController extends Controller
             );
         }
         $user = Auth::user();
-        $token = $user->createToken('token')->plainTextToken;
-        $cookie = cookie('jwt_token', $token, 60 * 1); // 1 day
+        $token = $user->createToken($request->email)->plainTextToken;
+        $cookie = cookie('jwt_token', $token, 60 * 24); // 1 day
 
         return response([
             'message' => 'Success',

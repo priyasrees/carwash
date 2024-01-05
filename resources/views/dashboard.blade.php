@@ -3,40 +3,46 @@
 @section('title')Dashboard
 @endsection
 <style>
-    *{
+    * {
         font-family: 'Poppins', 'Helvetica', sans-serif;
-        font-size:15px;
+        font-size: 15px;
 
     }
-    .auth-one-bg .bg-overlay, .btn-success{
+
+    .auth-one-bg .bg-overlay,
+    .btn-success {
         background: #FFDB58 !important;
         border: 1px solid yellow !important;
     }
-    .fs-25{
+
+    .fs-25 {
         font-size: x-large;
-    /* font-stretch: normal; */
+        /* font-stretch: normal; */
 
     }
-    .text-primary{
+
+    .text-primary {
         color: #FFDB58 !important;
     }
-    .btn-primary{
+
+    .btn-primary {
         background: #FFDB58 !important;
-    border: 1px solid yellow !important;
-    color: #635f5f!important;
+        border: 1px solid yellow !important;
+        color: #635f5f !important;
     }
 
-.breadcrumb-item a{
-    text-decoration: none;
-    color: #FFDB58!important;
-}
-#package_table td:nth-child(5){
-    white-space: normal!important;
-    max-width: 200px; /* Set your desired fixed width */
-        overflow: auto;
-}
+    .breadcrumb-item a {
+        text-decoration: none;
+        color: #FFDB58 !important;
+    }
 
- </style>
+    #package_table td:nth-child(5) {
+        white-space: normal !important;
+        max-width: 200px;
+        /* Set your desired fixed width */
+        overflow: auto;
+    }
+</style>
         {{-- <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">

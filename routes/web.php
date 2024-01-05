@@ -55,6 +55,7 @@ Route::get('payment',function(){
 
 
 Route::get('/logout', [AuthController::class,'logout'])->name('logout');
+Route::get('/offer', [CustomerController::class,'offer'])->name('offer');
 
 Route::resource('cardetail',CarDetailController::class);
 // Route::resource('carservices',CarServiceController::class);
