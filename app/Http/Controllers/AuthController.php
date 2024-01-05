@@ -64,20 +64,15 @@ class AuthController extends Controller
                 'message' => false,
                 'email' => $validator->errors()->first('email'),
             ]);
-        } else {
-            return response([
-                'message' => true,
-                'email' => 'Email is valid',
-            ]);
         }
-if(empty($request->password)){
-    return response(
-        [
-            'message' => false,
-            'email' => 'Password Required'
-        ]
-    );
-}
+        if (empty($request->password)) {
+            return response(
+                [
+                    'message' => false,
+                    'email' => 'Password Required'
+                ]
+            );
+        }
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response(
                 [
