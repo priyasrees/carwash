@@ -44,14 +44,120 @@ class AuthController extends Controller
                 ]
             );
         }
-        return User::create(
+        $phone = User::where('phone', $request->input('phone'))->first();
+        if (!empty($phone)) {
+            return response(
+                [
+                    'message' => false,
+                    'phone' => 'Phone Number Already Exists'
+                ]
+            );
+        }
+        $user = User::create(
             [
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password')),
-                'phone' => isset($request->phone) ? $request->phone : ''
+                'phone' => isset($request->phone) ? $request->phone : '',
+                'last_name'=>isset($request->last_name) ? $request->last_name : '',
+                'address'=>isset($request->address) ? $request->address : '',
+                'city'=>isset($request->city) ? $request->city : '',
+                'state'=>isset($request->state) ? $request->state : '',
+                'pincode'=>isset($request->pincode) ? $request->pincode : '',
+                'dob'=>isset($request->dob) ? $request->dob : '',
+                'drivinglicenseno'=>isset($request->drivinglicenseno) ? $request->drivinglicenseno : '',
             ]
         );
+        return response([
+            'message' => 'Success',
+            'id' => $user->id
+        ]);
+    }
+    public function update_profile(Request $request,$id)
+    {
+        $users = User::find($id);
+
+        if(!$users){
+            return response()->json([
+                'status' => false,
+                'message' => 'Id Not Found'
+            ]);
+        }
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'name' => 'required|string',
+            'password' => 'required|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+        ]);
+
+        if ($validator->fails()) {
+            return response([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        // else {
+        //     return response([
+        //         'message' => 'Validation passed',
+        //         'email' => $request->email,
+        //         'name' => $request->name,
+        //     ]);
+        // }
+        $email = User::where('email', $request->input('email'))->where('id','!=',$id)->first();
+        if (!empty($email)) {
+            return response(
+                [
+                    'message' => false,
+                    'email' => 'This Email Already Exists'
+                ]
+            );
+        }
+        $phone = User::where('phone', $request->input('phone'))
+        ->where('id','!=',$id)->first();
+        if (!empty($phone)) {
+            return response(
+                [
+                    'message' => false,
+                    'phone' => 'Phone Number Already Exists'
+                ]
+            );
+        }
+        $user = User::find($id);
+        $user->update(
+            [
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'phone' => isset($request->phone) ? $request->phone : '',
+                'last_name'=>isset($request->last_name) ? $request->last_name : '',
+                'address'=>isset($request->address) ? $request->address : '',
+                'city'=>isset($request->city) ? $request->city : '',
+                'state'=>isset($request->state) ? $request->state : '',
+                'pincode'=>isset($request->pincode) ? $request->pincode : '',
+                'dob'=>isset($request->dob) ? $request->dob : '',
+                'drivinglicenseno'=>isset($request->drivinglicenseno) ? $request->drivinglicenseno : '',
+            ]
+        );
+        return response([
+            'message' => 'Success',
+            'id' => $user->id
+        ]);
+    }
+    public function delete_profile($id)
+    {
+        $profile = User::find($id);
+
+        if (!$profile) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Id Not Found'
+            ]);
+        }
+        $profile->update(['is_active'=>0]);
+        return response()->json([
+            'status' => true,
+            'id' => $id,
+            'message' => 'Deleted'
+        ]);
     }
     public function login(Request $request)
     {
@@ -92,8 +198,11 @@ class AuthController extends Controller
     }
     public function user()
     {
-
-        return Auth::user();
+        $user = Auth::user()->where('is_active',1)->get();
+        return response([
+            'total'=>count($user),
+            'list' => $user
+        ]);
     }
     public function __construct()
     {
@@ -125,12 +234,8 @@ class AuthController extends Controller
 
     public function logout()
     {
-
         // Session::flush();
-
         // Auth::logout();
-
-        // return redirect('signin');
         $cookie = Cookie::forget('jwt_token');
         return response([
             'message' => 'Success'
