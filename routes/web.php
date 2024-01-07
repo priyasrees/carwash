@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarDetailController;
 use App\Http\Controllers\CarServiceController;
@@ -21,9 +22,9 @@ use App\Http\Controllers\AuthController;
 */
 Route::group(['middleware' => ['guest']], function() {
 
-    Route::get('signin',function(){
-        return view('signin');
-    });
+    // Route::get('signin',function(){
+    //     return view('signin');
+    // });
     Route::get('signup',function(){
         return view('signup');
     });

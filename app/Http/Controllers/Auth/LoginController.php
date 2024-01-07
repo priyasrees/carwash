@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -19,7 +22,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
 
     /**
@@ -28,6 +30,8 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/signin';
+
+
 
     /**
      * Create a new controller instance.
@@ -38,6 +42,44 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function signin(){
+        return view('signin');
+    }
+    // public function authenticate(Request $request)
+    // {
+
+    //     $validator = Validator::make($request->all(),[
+    //             'email' => 'required|email|max:250|unique:users',
+    //             'password' => 'required|min:8|confirmed',
+    //         ],
+    //         [
+    //             'email.required' => 'Please enter email.',
+    //             'email.email' => 'Please enter a valid email.',
+    //             'password.required' => 'Please enter password.'
+    //         ]);
+
+    //         if ($validator->fails()) {
+    //             // If validation fails, redirect back with errors
+    //             return redirect()->route('signin')->withErrors($validator)->withInput($request->all());
+
+    //         }
+
+
+    //       //  return redirect("signin")->withSuccess('Login details are not valid');
+    //     }
+//          catch (ValidationException $e) {
+//             // If validation fails, you can catch the exception and get the errors
+//             $errors = $e->validator->errors()->all();
+//  // Manually print the errors
+//         // foreach ($errors as $error) {
+//         //     echo $error . "\n";
+//         // }
+//             // You can now do something with the errors, for example, log them or return a response
+//             return redirect("signin")->withErrors($errors)->withInput($request->all());
+//         }
+
+
+
     public function logout()
 {
     Auth::logout();

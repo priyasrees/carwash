@@ -106,15 +106,18 @@
                                     }, 2000); // Adjust the delay (in milliseconds) based on your needs
                                     </script>
                                     @endif
-                                    @if ($errors->any())
+                                    {{-- @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
-                                            @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
+                                            @foreach ($errors->get('*') as $field => $errorsForField)
+                                            @foreach ($errorsForField as $error)
+                                                <li>{{ $field }}: {{ $error }}</li>
                                             @endforeach
+                                        @endforeach
+
                                         </ul>
                                     </div>
-                                    @endif
+                                    @endif --}}
                                     <form class="needs-validation" novalidate action="{{route('register')}}"
                                         method="post">
                                         @csrf
@@ -134,13 +137,13 @@
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone <span
                                                     class="text-danger">*</span></label>
-                                            <input type="number" min="0" class="form-control" name="phone"
+                                            <input type="number" min="0" class="form-control @error('phone') is-invalid @enderror" name="phone"
                                                 id="phone" value="{{ old('phone') }}" placeholder="Mobile No">
-                                            @if($errors->has('phone'))
-                                            <span class="invalid-feedback">
-                                                {{ $errors->first('phone') }}
-                                            </span>
-                                            @endif
+                                                @error('phone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
 
                                         <div class="mb-3">
@@ -164,23 +167,22 @@
                                                     placeholder="Enter password" id="password"
                                                     aria-describedby="passwordInput"
                                                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+
                                                 <button
                                                     class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
                                                     type="button" id="password-addon"><i
                                                         class="ri-eye-fill align-middle"></i></button>
                                                         <span class="text-danger" style="font-size: 12px">Password must contain 8 aplhanumeric characters</span>
 
-                                                <div class="invalid-feedback">
-                                                    Please enter password
-                                                </div>
                                             </div>
+
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label" for="password-confirm">Confirm Password</label>
                                             <div class="position-relative auth-pass-inputgroup">
                                                 <input type="password" name="password_confirmation" id="password-confirm"
-                                                    class="form-control pe-5 password-input" onpaste="return false"
+                                                    class="form-control pe-5 password-input @error('password') is-invalid @enderror" onpaste="return false"
                                                     placeholder="Enter password" id="password-confirm"
                                                     aria-describedby="passwordInput"
                                                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required autocomplete="new-password">
@@ -189,9 +191,12 @@
                                                     class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
                                                     type="button" id="password-addon"><i
                                                         class="ri-eye-fill align-middle"></i></button>
-                                                <div class="invalid-feedback">
-                                                    Please enter password
-                                                </div>
+                                                        @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+
                                             </div>
                                         </div>
 

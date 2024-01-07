@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\api\CarController;
 use App\Http\Controllers\api\PackageController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\StaffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +27,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function () {
 Route::get('/user',[AuthController::class, 'user']);
 Route::post('/logout',[AuthController::class, 'logout']);
-Route::resource('/car',CarController::class);
-Route::resource('/package',PackageController::class);
 Route::post('/update_profile/{id}', [AuthController::class, 'update_profile']);
 Route::get('/delete_profile/{id}', [AuthController::class, 'delete_profile']);
+
+Route::resource('/car',CarController::class);
+Route::resource('/package',PackageController::class);
+Route::resource('/staff',StaffController::class);
+
     });
