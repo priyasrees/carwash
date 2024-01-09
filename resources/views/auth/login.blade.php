@@ -98,9 +98,9 @@
                                             </div>
 
                                         <div class="mb-3">
-                                            {{-- <div class="float-end">
-                                                <a href="{{url('forgot_password')}}" class="text-muted">Forgot password?</a>
-                                            </div> --}}
+                                            <div class="float-end">
+                                                <a href="{{url('password_reset')}}" class="fw-semibold text-primary text-decoration-underline text-muted">Forgot password?</a>
+                                            </div>
                                             <label class="form-label" for="password">Password</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input type="password" name="password" required class="form-control pe-5 password-input @error('password') is-invalid @enderror"

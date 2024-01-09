@@ -48,17 +48,21 @@
                                 </div>
 
                                 <div class="alert border-0 alert-warning text-center mb-2 mx-2" role="alert">
-                                    Enter your email and instructions will be sent to you!
+                                    Enter your email will be sent to you!
                                 </div>
                                 <div class="p-2">
                                     <form method="post" action="{{url('/send_passwordreset_mail')}}">
                                         @csrf
                                         <div class="mb-4">
-                                            <label class="form-label">Email</label>
+                                            <label class="form-label">Email<span class="text-danger">*</span></label>
                                             <input type="email" class="form-control" name="email"
                                             required id="email" placeholder="Enter Email" value="{{old('email')}}">
                                         </div>
-
+@if($errors->has('mail_invalid'))
+    <div class="alert alert-danger">
+        {{$errors->first('mail_invalid')}}
+    </div>
+@endif
                                         <div class="text-center mt-4">
                                             <input type="submit" value="Send Reset Link" class="btn btn-success w-100" />
                                         </div>

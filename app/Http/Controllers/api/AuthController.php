@@ -12,6 +12,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse; // Import JsonResponse
 
 class AuthController extends Controller
 {
@@ -242,4 +243,38 @@ class AuthController extends Controller
             'message' => 'Success'
         ])->withCookie($cookie);
     }
+    //reset_password
+    public function change_password(Request $request){
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+            'new_password' => 'required|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+            'confirm_password' => 'required|same:new_password'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()],
+            JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $old_password = $request->input('old_password');
+        $new_password = $request->input('new_password');
+        $validate_pass = User::where('id', Auth::user()->id)->first();
+        if ($validate_pass == Hash::check($old_password, $validate_pass->password)) {
+                User::where('id', Auth::user()->id)
+                    ->update(['password' => Hash::make($new_password)]);
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Password Updated'
+                    ]);
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Password Wrong'
+            ]);
+
+        }
+
+    }
+
+
 }

@@ -1,57 +1,8 @@
-<!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg"
-    data-sidebar-image="none" data-preloader="disable">
-
-
-<!-- Mirrored from themesbrand.com/velzon/html/minimal/auth-signup-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Dec 2023 13:43:33 GMT -->
-
-<head>
-
-    <meta charset="utf-8" />
-    <title>Sign Up | Velzon - Admin & Dashboard Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{url('/assets/images/carwashlogo.png')}}">
-
-    <!-- Layout config Js -->
-    <script src="assets/js/layout.js"></script>
-    <!-- Bootstrap Css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
-
-
-</head>
-<style>
-    * {
-        font-family: 'Poppins', 'Helvetica', sans-serif;
-
-    }
-
-    .auth-one-bg .bg-overlay,
-    .btn-success {
-        background: #FFDB58 !important;
-        border: 1px solid yellow !important;
-    }
-
-    .fs-25 {
-        font-size: x-large;
-        /* font-stretch: normal; */
-        color: lightgoldenrodyellow;
-    }
-
-    .text-primary {
-        color: #FFDB58 !important;
-    }
-</style>
-
-<body>
+@extends('layouts.auth.app')
+@section('title')
+    Sign Up
+@endsection
+@section('content')
 
     <div class="auth-page-wrapper pt-5">
         <!-- auth page bg -->
@@ -271,46 +222,9 @@
             <!-- end container -->
         </div>
         <!-- end auth page content -->
+        @include('layouts.auth.footer')
 
-        <!-- footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center">
-                            <p class="mb-0 text-muted">&copy;
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- end Footer -->
     </div>
     <!-- end auth-page-wrapper -->
+    @endsection
 
-    <!-- JAVASCRIPT -->
-    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="assets/libs/node-waves/waves.min.js"></script>
-    <script src="assets/libs/feather-icons/feather.min.js"></script>
-    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-    <script src="assets/js/plugins.js"></script>
-
-    <!-- particles js -->
-    <script src="assets/libs/particles.js/particles.js"></script>
-    <!-- particles app js -->
-    <script src="assets/js/pages/particles.app.js"></script>
-    <!-- validation init -->
-    <script src="assets/js/pages/form-validation.init.js"></script>
-    <!-- password create init -->
-    <script src="assets/js/pages/passowrd-create.init.js"></script>
-</body>
-
-
-<!-- Mirrored from themesbrand.com/velzon/html/minimal/auth-signup-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Dec 2023 13:43:33 GMT -->
-
-</html>

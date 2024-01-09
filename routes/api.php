@@ -29,6 +29,7 @@ Route::get('/user',[AuthController::class, 'user']);
 Route::post('/logout',[AuthController::class, 'logout']);
 Route::post('/update_profile/{id}', [AuthController::class, 'update_profile']);
 Route::get('/delete_profile/{id}', [AuthController::class, 'delete_profile']);
+Route::post('/change_password', [AuthController::class, 'change_password']);
 
 Route::resource('/car',CarController::class);
 Route::resource('/package',PackageController::class);

@@ -14,40 +14,46 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth')->except('logout');
         $this->middleware('guest')->only('user_reg');
-       }
-public function user_reg(Request $request){
-print_r($request->all());
-exit();
-    $validator= Validator::make($request->all(), [
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
-        'phone' =>['numeric','min:10']
-    ]);
-    if ($validator->fails()) {
-        // If validation fails, redirect back with errors
-        return redirect()->back()->withErrors($validator)->withInput($request->all());
-
     }
-        // return User::create([
-        //     'name' => $request->input('name'),
-        //     'email' =>  $request->input('email'),
-        //     'password' => Hash::make($request->input('password')),
-        //     'phone'=> $request->input('phone'),
-        //     'address'=>'','city'=>'','state'=>'','pincode'=>'','dob'=>'','drivinglicenseno'=>''
-
-        // ]);
-
-}
     public function logout()
     {
         Session::flush();
         Auth::logout();
-      return redirect('/signin');
+        return redirect('/signin');
     }
+    public function changePassword()
+    {
+        return view('auth.change_password');
+    }
+    public function reset_password(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+            'new_password' => 'required|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+            'confirm_password' => 'required'
+        ]);
+
+        $old_password = $request->input('old_password');
+        $new_password = $request->input('new_password');
+        $confirm_password = $request->input('confirm_password');
+        $validate_pass = User::where('id', Auth::user()->id)->first();
+        if ($validate_pass == Hash::check($old_password, $validate_pass->password)) {
+            if ($new_password === $confirm_password) {
+                User::where('id', Auth::user()->id)
+                    ->update(['password' => Hash::make($new_password)]);
+                return redirect()->route('auth.change_password')->withMessage('Password Updated');
+            } else {
+                return redirect()->back()->withInput()
+                    ->withErrors(['Mismatch' => 'Password Mismatch']);
+            }
+        } else {
+            return redirect()->back()->withInput()
+                ->withErrors(['wrong_password' => 'Password Wrong']);
+        }
+    }
+
 }

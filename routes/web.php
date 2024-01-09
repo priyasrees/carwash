@@ -10,6 +10,8 @@ use App\Http\Controllers\StaffController;
 use App\Models\CarDetail;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PasswordResetController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,18 +22,22 @@ use App\Http\Controllers\AuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Auth::routes();
+
 Route::group(['middleware' => ['guest']], function() {
 
-    // Route::get('signin',function(){
-    //     return view('signin');
-    // });
+    Route::get('signin',function(){
+        return view('signin');
+    });
     Route::get('signup',function(){
         return view('signup');
     });
-    Route::get('forgot_password',function(){
-        return view('forgot_password');
+    Route::get('/password_reset', [PasswordResetController::class,'password_reset'])->name('password_reset');
+
+    Route::post('/send_passwordreset_mail', [PasswordResetController::class,'send_passwordreset_mail'])->name('send_passwordreset_mail');
+
     });
-    });
+
 Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/', function () {
@@ -66,9 +72,10 @@ Route::resource('staff',StaffController::class);
 Route::get('/assign_customer', [StaffController::class, 'assign_customer'])->name('staff.assign_customer');
 Route::get('/reassign_customer/{id}', [StaffController::class, 'reassign_customer'])->name('staff.reassign_customer');
 Route::post('/assignstaff', [StaffController::class, 'assignstaff'])->name('staff.assignstaff');
+Route::get('/change_password', [AuthController::class, 'changePassword'])->name('auth.change_password');
+Route::post('/reset_password', [AuthController::class, 'reset_password'])->name('auth.reset_password');
 });
 
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
